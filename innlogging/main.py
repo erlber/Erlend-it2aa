@@ -1,5 +1,7 @@
-# innloggingsprogram
+from auth import Auth
 
+
+auth = Auth()
 users = [{"userName": "admin", "password": "123"}]
 
 def main():
@@ -17,9 +19,17 @@ def vis_startmeny():
     print("3) Avslutt")
     valg = input("Hva ønsker du å gjøre? ")
     if valg == "1":
-        return login()
+        print("\n=== Log inn ===")
+        b = input("brukernavn: ")
+        p = input("passord: ")
+
+        if auth.login(b, p):
+            print("du er nå logget inn")
+            return "innlogget"
+        else:
+            print("Feil brukernavn eller passord..")
+            return "start"
     elif valg == "2":
-        # her skal vi fylle inn logikk for å registrere ny bruker.
         return registrer()
     elif valg == "3":
         return "quit"
@@ -47,17 +57,7 @@ def vis_inlogget_meny():
         return "innlogget"
 
 
-def login():
-    print("\n=== Log inn ===")
-    b = input("brukernavn: ")
-    p = input("passord: ")
-    for user in users:
-        if b == user["userName"] and  p == user["password"]:
-            print("du er nå logget inn")
-            return "innlogget"
-    
-    print("Feil brukernavn eller passord..")
-    return "start"
+
 
 def registrer():
     print("\n=== registrer ny bruker ===")
